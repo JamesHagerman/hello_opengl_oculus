@@ -1,0 +1,14 @@
+﻿Build started 12/26/2014 1:42:10 PM.
+     1>Project "C:\Users\jamis\Desktop\my_root\Development\VS Projects\hello_opengl_oculus\hello_opengl\hello_opengl.vcxproj" on node 2 (Build target(s)).
+     1>C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.CppBuild.targets(388,5): warning MSB8028: The intermediate directory (x64\Debug\) contains files shared from another project (hello_opengl.vcxproj).  This can lead to incorrect clean and rebuild behavior.
+     1>ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\x86_amd64\CL.exe /c /IC:\Users\jamis\Desktop\my_root\Development\all_libraries\OculusSDK\LibOVR\Src /IC:\Users\jamis\Desktop\my_root\Development\all_libraries\OculusSDK\LibOVR\Include /IC:\Users\jamis\Desktop\my_root\Development\all_libraries\glm /IC:\Users\jamis\Desktop\my_root\Development\all_libraries\GLFW\include /I"C:\Users\jamis\Desktop\my_root\Development\all_libraries\glew-1.11.0\include" /Zi /nologo /W3 /WX- /sdl /Od /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"x64\Debug\\" /Fd"x64\Debug\vc120.pdb" /Gd /TP /errorReport:prompt main.cpp
+         main.cpp
+       Link:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\x86_amd64\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\jamis\Desktop\my_root\Development\VS Projects\hello_opengl_oculus\x64\Debug\single_page_starter.exe" /INCREMENTAL /NOLOGO /LIBPATH:C:\Users\jamis\Desktop\my_root\Development\all_libraries\OculusSDK\LibOVR\Lib\x64\VS2013 /LIBPATH:"C:\Users\jamis\Desktop\my_root\Development\all_libraries\glew-1.11.0\lib\Release\x64" /LIBPATH:C:\Users\jamis\Desktop\my_root\Development\all_libraries\GLFW\lib glfw3dll.lib glew32.lib libovr64d.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\jamis\Desktop\my_root\Development\VS Projects\hello_opengl_oculus\x64\Debug\single_page_starter.pdb" /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\jamis\Desktop\my_root\Development\VS Projects\hello_opengl_oculus\x64\Debug\single_page_starter.lib" /MACHINE:X64 x64\Debug\main.obj
+         hello_opengl.vcxproj -> C:\Users\jamis\Desktop\my_root\Development\VS Projects\hello_opengl_oculus\x64\Debug\single_page_starter.exe
+     1>Done Building Project "C:\Users\jamis\Desktop\my_root\Development\VS Projects\hello_opengl_oculus\hello_opengl\hello_opengl.vcxproj" (Build target(s)).
+
+Build succeeded.
+
+Time Elapsed 00:00:01.00

@@ -1,18 +1,33 @@
+ï»¿//
+//  main.cpp
+//  hello_opengl_oculus
+//
+//  Created by James Hagerman on 12/26/14.
+//  Copyright (c) 2014 James Hagerman. All rights reserved.
+//
+
 #include <stdio.h>
 #include <stdlib.h>
 
+#if !defined(__APPLE__)
 #include <GL/glew.h>
+#endif
 
-#include <GLFW/glfw3.h>
+#if defined(__APPLE__)
+//#include <OpenGL/gl3.h>
+#endif
+
 #if defined(_WIN32)
 //#  include <Windows.h>
 //#  include <algorithm>
 // If you don't include these in the Visual Studio project configs. These need to go before OVR_CAPI.h:
 #pragma comment(lib, "winmm.lib")
-#pragma comment(lib, "Ws2_32.lib") 
+#pragma comment(lib, "Ws2_32.lib")
 #pragma comment(linker, "/SUBSYSTEM:windows /ENTRY:mainCRTStartup")
 #  define GLFW_EXPOSE_NATIVE_WIN32
 #  define GLFW_EXPOSE_NATIVE_WGL
+#elif defined(__APPLE__)
+#  define GLFW_INCLUDE_GLCOREARB
 #elif defined(__linux__)
 #  include <X11/X.h>
 #  include <X11/extensions/Xrandr.h>
@@ -20,9 +35,11 @@
 #  define GLFW_EXPOSE_NATIVE_GLX
 #endif
 
+#include <GLFW/glfw3.h>
 #if !defined(__APPLE__)
 #  include <GLFW/glfw3native.h>
 #endif
+
 
 #include <glm/glm.hpp>
 
@@ -242,69 +259,69 @@ void keyboard(GLFWwindow* pWindow, int key, int codes, int action, int mods)
 	{
 		switch (key)
 		{
-			default:
-				ovrHmd_DismissHSWDisplay(hmd);
-				break;
+		default:
+			ovrHmd_DismissHSWDisplay(hmd);
+			break;
 
-			case GLFW_KEY_ESCAPE:
-				glfwSetWindowShouldClose(pWindow, GL_TRUE);
-				//if (directHmdMode)
-				//{
-				//	// Clear the frame before calling all the destructors - even a few
-				//	// frames worth of frozen video is enough to cause discomfort!
-				//	///@note This does not seem to work in Direct mode.
-				//	//glClearColor(58.f / 255.f, 110.f / 255.f, 165.f / 255.f, 1.f); // Win7 default desktop color
-				//	//glClear(GL_COLOR_BUFFER_BIT);
-				//	//glfwSwapBuffers(g_pHMDWindow);
-				//	//glClear(GL_COLOR_BUFFER_BIT);
-				//	//glfwSwapBuffers(g_pHMDWindow);
+		case GLFW_KEY_ESCAPE:
+			glfwSetWindowShouldClose(pWindow, GL_TRUE);
+			//if (directHmdMode)
+			//{
+			//	// Clear the frame before calling all the destructors - even a few
+			//	// frames worth of frozen video is enough to cause discomfort!
+			//	///@note This does not seem to work in Direct mode.
+			//	//glClearColor(58.f / 255.f, 110.f / 255.f, 165.f / 255.f, 1.f); // Win7 default desktop color
+			//	//glClear(GL_COLOR_BUFFER_BIT);
+			//	//glfwSwapBuffers(g_pHMDWindow);
+			//	//glClear(GL_COLOR_BUFFER_BIT);
+			//	//glfwSwapBuffers(g_pHMDWindow);
 
-				//	//deallocateFBO(m_renderBuffer);
-				//	ovrHmd_Destroy(hmd);
-				//	ovr_Shutdown();
+			//	//deallocateFBO(m_renderBuffer);
+			//	ovrHmd_Destroy(hmd);
+			//	ovr_Shutdown();
 
-				//	glfwDestroyWindow(l_Window);
-				//	glfwTerminate();
-				//	exit(0);
-				//}
-				//else
-				//{
-				//	//destroyAuxiliaryWindow(l_Window);
-				//	//glfwMakeContextCurrent(g_pHMDWindow);
-				//}
+			//	glfwDestroyWindow(l_Window);
+			//	glfwTerminate();
+			//	exit(0);
+			//}
+			//else
+			//{
+			//	//destroyAuxiliaryWindow(l_Window);
+			//	//glfwMakeContextCurrent(g_pHMDWindow);
+			//}
 
-				// Clean up FBO...
-			
+			// Clean up FBO...
 
-				//ovrHmd_Destroy(hmd);
-				//ovr_Shutdown();
 
-				//glfwDestroyWindow(l_Window);
-				//glfwTerminate();
-				//exit(EXIT_SUCCESS);
-				break;
-			case GLFW_KEY_R:
-				ovrHmd_RecenterPose(hmd);
-				break;
-			case GLFW_KEY_UP:
-				g_CameraPosition.z += 0.1f;
-				break;
-			case GLFW_KEY_DOWN:
-				g_CameraPosition.z -= 0.1f;
-				break;
-			case GLFW_KEY_LEFT:
-				g_CameraPosition.x += 0.1f;
-				break;
-			case GLFW_KEY_RIGHT:
-				g_CameraPosition.x -= 0.1f;
-				break;
+			//ovrHmd_Destroy(hmd);
+			//ovr_Shutdown();
+
+			//glfwDestroyWindow(l_Window);
+			//glfwTerminate();
+			//exit(EXIT_SUCCESS);
+			break;
+		case GLFW_KEY_R:
+			ovrHmd_RecenterPose(hmd);
+			break;
+		case GLFW_KEY_UP:
+			g_CameraPosition.z += 0.1f;
+			break;
+		case GLFW_KEY_DOWN:
+			g_CameraPosition.z -= 0.1f;
+			break;
+		case GLFW_KEY_LEFT:
+			g_CameraPosition.x += 0.1f;
+			break;
+		case GLFW_KEY_RIGHT:
+			g_CameraPosition.x -= 0.1f;
+			break;
 		}
 
 	}
 }
 
 
-int main(void) {
+int main(int argc, const char * argv[]) {
 	printf("hello world\n");
 
 	// Setup GLFW Window:
@@ -367,33 +384,33 @@ int main(void) {
 			l_Monitor = ppMonitors[i];
 			if (l_Monitor == pPrimary)
 				continue;
-			const GLFWvidmode* mode = glfwGetVideoMode(l_Monitor);
+			//const GLFWvidmode* mode = glfwGetVideoMode(l_Monitor);
 		}
 
 		l_ClientSize.w = hmd->Resolution.w; // Something reasonable, smaller, but maintain aspect ratio...
 		l_ClientSize.h = hmd->Resolution.h; // Something reasonable, smaller, but maintain aspect ratio...
 	}
 	else
-	{	
+	{
 		int l_Count;
 		GLFWmonitor** l_Monitors = glfwGetMonitors(&l_Count);
 		switch (l_Count)
 		{
-			case 0:
-				printf("No monitors found, exiting...\n");
-				exit(EXIT_FAILURE);
-				break;
-			case 1:
-				printf("Two monitors expected, found only one, using primary...\n");
-				l_Monitor = glfwGetPrimaryMonitor();
-				break;
-			case 2:
-				printf("Two monitors found, using second monitor...\n");
-				l_Monitor = l_Monitors[1];
-				break;
-			default:
-				printf("More than two monitors found, using second monitor...\n");
-				l_Monitor = l_Monitors[1];
+		case 0:
+			printf("No monitors found, exiting...\n");
+			exit(EXIT_FAILURE);
+			break;
+		case 1:
+			printf("Two monitors expected, found only one, using primary...\n");
+			l_Monitor = glfwGetPrimaryMonitor();
+			break;
+		case 2:
+			printf("Two monitors found, using second monitor...\n");
+			l_Monitor = l_Monitors[1];
+			break;
+		default:
+			printf("More than two monitors found, using second monitor...\n");
+			l_Monitor = l_Monitors[1];
 		}
 
 		printf("Using Extended Desktop mode...\n");
@@ -401,7 +418,13 @@ int main(void) {
 		l_ClientSize.h = hmd->Resolution.h;
 	}
 
+#if defined(__APPLE__)
+	// Full screen is needed for OS X...
+	l_Window = glfwCreateWindow(l_ClientSize.w, l_ClientSize.h, "GLFW Oculus Rift Test", l_Monitor, NULL);
+#else
+	// ... but it doesn't play well with direct mode in Windows 
 	l_Window = glfwCreateWindow(l_ClientSize.w, l_ClientSize.h, "GLFW Oculus Rift Test", NULL, NULL);
+#endif
 	glfwWindowHint(GLFW_DECORATED, 0);
 
 
@@ -430,6 +453,8 @@ int main(void) {
 
 	glfwMakeContextCurrent(l_Window);
 
+
+#if !defined(__APPLE__)
 	// Don't forget to initialize Glew, turn glewExperimental on to
 	// avoid problems fetching function pointers...
 	glewExperimental = GL_TRUE;
@@ -440,6 +465,7 @@ int main(void) {
 		//LOG_INFO("glewInit() error.\n");
 		exit(EXIT_FAILURE);
 	}
+#endif
 
 	printGLContextInfo(l_Window);
 
@@ -557,18 +583,18 @@ int main(void) {
 	g_CameraPosition.y = 0.0f;
 	g_CameraPosition.z = -2.0f;
 
-	
 
-	// Start the sensor which provides the Rift’s pose and motion.
+
+	// Start the sensor which provides the Riftï¿½s pose and motion.
 	ovrBool l_TrackingResult = ovrHmd_ConfigureTracking(hmd, ovrTrackingCap_Orientation |
-															 ovrTrackingCap_MagYawCorrection |
-															 ovrTrackingCap_Position, 0);
+		ovrTrackingCap_MagYawCorrection |
+		ovrTrackingCap_Position, 0);
 	if (!l_TrackingResult)
 	{
 		printf("Could not start tracking...");
 		exit(EXIT_FAILURE);
 	}
-	
+
 	// Setup GLFW Callbacks:
 	glfwSetWindowSizeCallback(l_Window, WindowSizeCallback);
 	//glfwSetMouseButtonCallback(l_Window, mouseDown);
@@ -668,7 +694,7 @@ int main(void) {
 		{
 			ovrPosef pose = ts.HeadPose.ThePose;
 			//printf("Pos: %f, %f, %f\t", pose.Position.x, pose.Position.y, pose.Position.z);
-			
+
 			ovrQuatf ori = pose.Orientation;
 			Quatf OculusRiftOrientation = ori;
 			OculusRiftOrientation.GetEulerAngles<OVR::Axis_X, OVR::Axis_Y, OVR::Axis_Z>(&yaw, &eyePitch, &eyeRoll);
